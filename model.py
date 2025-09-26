@@ -578,7 +578,7 @@ class ConformerConvolution(nn.Module):
         x = x.view(batch_size, channels, seq_len)
         
         x = self.pointwise_conv1(x)
-        x = F.relu(x,dim = 1)
+        x = F.glu(x, dim=1)
         
         if pad_mask is not None:
             x = x.masked_fill(pad_mask.unsqueeze(1), 0.0)
@@ -763,7 +763,7 @@ class ConformerEncoder(nn.Module):
             feat_out=d_model,
             conv_channels=subsampling_conv_channels,
             subsampling_conv_chunking_factor=1,
-            activation=nn.ReLU(),
+            activation=nn.ReLU(True),
             is_causal=False,
         )
         self.pos_enc = RelPositionalEncoding(
