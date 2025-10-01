@@ -19,7 +19,7 @@ args = parser.parse_args()
 
 def load_conformer_model(model_path):
     """Load the converted Conformer model"""
-    from model import ConformerCTC
+    from conformer import ConformerCTC
     
     print("Initializing Conformer model...")
     model = ConformerCTC()  # Use default configuration from model.py
@@ -29,6 +29,7 @@ def load_conformer_model(model_path):
     # Handle both direct state_dict and {'state_dict': ...} formats
     state_dict = checkpoint.get('state_dict', checkpoint)
     model.load_state_dict(state_dict)
+
     
     print("Model loaded successfully!")
     return model
